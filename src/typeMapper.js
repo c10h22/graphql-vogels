@@ -12,13 +12,15 @@ export function toGraphQL(vogelsType) {
         return GraphQLList;
     } else if (vogelsType._type === 'object') {
         return GraphQLObjectType;
-    }else if (
+    } else if (
         vogelsType._type === 'string' ||
         vogelsType._type === 'date' ||
         vogelsType._type === 'uuid'
     ) {
         return GraphQLString;
-    } else {
+    } else if (vogelsType._type != null) {
         return new Error(`Not handled vogelType ${vogelsType._type}`);
+    } else {
+        return new Error(`Not handled vogelType`);
     }
 }
