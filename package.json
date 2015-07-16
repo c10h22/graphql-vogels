@@ -7,8 +7,8 @@
     "prepublish": "npm run check && npm run build",
     "check": "npm run lint && npm test",
     "lint": "eslint src",
-    "build": "del /q lib\\* && babel src --ignore test --optional runtime --out-dir lib",
-    "build-test": "npm run build && del /q test\\* && babel src/test --optional runtime --out-dir test",
+    "build": "rm -rf lib\\* && babel src --ignore test --optional runtime --out-dir lib",
+    "build-test": "npm run build && rm -rf test\\* && babel src/test --optional runtime --out-dir test",
     "test": "npm run build-test && mocha --require scripts/mocha-bootload test/*.test.js"
   },
   "repository": {
