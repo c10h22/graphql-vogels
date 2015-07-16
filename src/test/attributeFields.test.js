@@ -45,7 +45,7 @@ describe('attributeFields', () => {
         expect(fields.count.type).to.equal(GraphQLInt);
         expect(fields.first_time.type).to.equal(GraphQLBoolean);
         expect(fields.friends.type).to.equal(GraphQLList);
-        expect(fields.address.type).to.equal(GraphQLObjectType)
+        expect(fields.address.type).to.equal(GraphQLObjectType);
     });
 
     it('should be possible to exclude fields', function () {

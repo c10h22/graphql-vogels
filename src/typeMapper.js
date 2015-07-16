@@ -1,7 +1,7 @@
 import { GraphQLInt, GraphQLString, GraphQLBoolean, GraphQLList, GraphQLObjectType } from 'graphql';
 
 export function toGraphQL(vogelsType) {
-    if (vogelsType==null) {
+    if (vogelsType == null) {
         return new Error(`vogelType can not be null`);
     }
     if (vogelsType._type === 'boolean') {
