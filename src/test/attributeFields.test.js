@@ -55,7 +55,8 @@ describe('attributeFields', () => {
 
     it('should be possible to exclude fields', function () {
         let options = {
-            exclude: ['email', 'salt', 'count', 'address', 'nullField', 'emptyFieldType', 'invalidFieldType']
+            exclude: ['email', 'salt', 'count', 'address', 'nullField',
+                'emptyFieldType', 'invalidFieldType']
         };
         let fields = attributeFields(config, options);
         expect(fields).to.have.keys(['first_name', 'last_name', 'hash', 'friends', 'first_time'])
