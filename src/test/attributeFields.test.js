@@ -5,7 +5,8 @@ import {
     GraphQLString,
     GraphQLNonNull,
     GraphQLBoolean,
-    GraphQLList
+    GraphQLList,
+    GraphQLInt
     } from 'graphql';
 import { attributeFields } from '../lib/index.js';
 
@@ -22,9 +23,11 @@ describe('attributeFields', () => {
             hash: Joi.string(),
             first_name: Joi.string(),
             last_name: Joi.string(),
-            phone_number: Joi.string(),
+            count: Joi.number(),
             first_time: Joi.boolean(),
-            friends: Joi.array()
+            friends: Joi.array(),
+            address: Joi.object(),
+            nullField: null
         }
     };
     // let Model = vogels.define('Model', config);
@@ -37,14 +40,15 @@ describe('attributeFields', () => {
         expect(fields.hash.type).to.be.an.instanceOf(GraphQLNonNull);
         expect(fields.hash.type.ofType).to.equal(GraphQLString);
         expect(fields.first_name.type).to.equal(GraphQLString);
-        expect(fields.last_name.type).to.equal(GraphQLString);
+        expect(fields.count.type).to.equal(GraphQLInt);
         expect(fields.first_time.type).to.equal(GraphQLBoolean);
         expect(fields.friends.type).to.equal(GraphQLList);
+        expect(fields.address.type).to.equal(GraphQLObjectType);
     });
 
     it('should be possible to exclude fields', function () {
         let options = {
-            exclude: ['email', 'salt','phone_number']
+            exclude: ['email', 'salt','count','address']
         };
         let fields = attributeFields(config, options);
         expect(fields).to.have.keys(['first_name', 'last_name', 'hash', 'friends', 'first_time'])
