@@ -23,8 +23,8 @@ describe('attributeFields', () => {
             first_name: Joi.string(),
             last_name: Joi.string(),
             phone_number: Joi.string(),
-            first_time: Joi.Boolean(),
-            friends: Joi.Array()
+            first_time: Joi.boolean(),
+            friends: Joi.array()
         }
     };
     // let Model = vogels.define('Model', config);
