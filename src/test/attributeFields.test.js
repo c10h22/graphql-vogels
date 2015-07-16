@@ -47,7 +47,7 @@ describe('attributeFields', () => {
             exclude: ['email', 'salt','phone_number']
         };
         let fields = attributeFields(config, options);
-        expect(fields).to.have.keys(['first_name', 'last_name', 'hash'])
+        expect(fields).to.have.keys(['first_name', 'last_name', 'hash', 'friends', 'first_time'])
             .and.not.have.keys(options.exclude);
     });
 });
