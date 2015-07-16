@@ -28,7 +28,10 @@ describe('attributeFields', () => {
             first_time: Joi.boolean(),
             friends: Joi.array(),
             address: Joi.object(),
-            nullField: null
+            nullField: null,
+            invalidFieldType: {_type: 'type'},
+            emptyFieldType: {}
+
         }
     };
     // let Model = vogels.define('Model', config);
