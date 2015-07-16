@@ -43,6 +43,8 @@ describe('attributeFields', () => {
         expect(fields).to.have.keys(Object.keys(config.schema));
         expect(fields.hash.type).to.be.an.instanceOf(GraphQLNonNull);
         expect(fields.nullField.type).to.be.an.instanceOf(Error);
+        expect(fields.invalidFieldType.type).to.be.an.instanceOf(Error);
+        expect(fields.emptyFieldType.type).to.be.an.instanceOf(Error);
         expect(fields.hash.type.ofType).to.equal(GraphQLString);
         expect(fields.first_name.type).to.equal(GraphQLString);
         expect(fields.count.type).to.equal(GraphQLInt);
