@@ -66,11 +66,11 @@ describe('attributeFields', () => {
     });
 
     it('should be possible to exclude fields', function () {
-        options = {
+        let opt = {
             exclude: ['email', 'salt', 'count', 'address', 'nullField',
                 'emptyFieldType', 'invalidFieldType']
         };
-        let fields = attributeFields(config, options);
+        let fields = attributeFields(config, opt);
         expect(fields).to.not.have.keys(options.exclude);
     });
 

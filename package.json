@@ -1,6 +1,6 @@
 {
   "name": "graphql-vogels",
-  "version": "0.0.3-rc.2",
+  "version": "0.1.0",
   "description": "Vogels helper for Graphql",
   "main": "lib/index.js",
   "scripts": {
