@@ -29,6 +29,6 @@ build/Release
 node_modules
 
 # Webstorm
-.idea
+**/.idea/**
 
 
