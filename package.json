@@ -1,10 +1,14 @@
 {
   "name": "graphql-vogels",
-  "version": "0.0.2",
+  "version": "0.0.3-rc.0",
   "description": "Vogels helper for Graphql",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "npm run check && npm run build && grunt changelog",
+    "publish-patch": "grunt bump-only:patch && npm publish ./",
+    "publish-minor": "grunt bump-only:minor && npm publish ./",
+    "publish-major": "grunt bump-only:major && npm publish ./",
+    "publish-prerelease": "grunt bump-only:prerelease && npm publish ./",
     "postpublish": "grunt bump-commit",
     "check": "npm run lint && npm test",
     "lint": "eslint src",
