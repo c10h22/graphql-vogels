@@ -28,13 +28,13 @@ export default function (config, opts) {
         return memo;
     }, {});
     if (config.timestamps) {
-        if(
+        if (
             config.createdAt === undefined ||
-            config.createdAt == true ||
-            typeof config.createdAt == 'string'
-        ){
+            config.createdAt === true ||
+            typeof config.createdAt === 'string'
+        ) {
             let key = 'createdAt';
-            if(typeof config.createdAt == 'string'){
+            if (typeof config.createdAt === 'string') {
                 key = config.createdAt;
             }
             fields[key] = {
@@ -42,13 +42,13 @@ export default function (config, opts) {
                 description: 'Creation timestamp'
             };
         }
-        if(
+        if (
             config.updatedAt === undefined ||
-            config.updatedAt == true ||
-            typeof config.updatedAt == 'string'
-        ){
+            config.updatedAt === true ||
+            typeof config.updatedAt === 'string'
+        ) {
             let key = 'updatedAt';
-            if(typeof config.updatedAt == 'string'){
+            if (typeof config.updatedAt === 'string') {
                 key = config.updatedAt;
             }
             fields[key] = {

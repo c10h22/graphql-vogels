@@ -1,9 +1,8 @@
 import Joi from 'joi';
 import { expect } from 'chai';
-import vogels from 'vogels';
 import betterLog from 'better-log/index';
 
-betterLog.install({depth:2});
+betterLog.install({depth: 2});
 
 import {
     GraphQLString,
@@ -67,7 +66,7 @@ describe('attributeFields', () => {
     });
 
     it('should be possible to exclude fields', function () {
-        let options = {
+        options = {
             exclude: ['email', 'salt', 'count', 'address', 'nullField',
                 'emptyFieldType', 'invalidFieldType']
         };
@@ -76,7 +75,7 @@ describe('attributeFields', () => {
     });
 
     it('should be possible to use timestamps in config', () => {
-        let config = {
+        config = {
             tableName: 'table',
             hashKey: 'hash',
             timestamps: true,
@@ -95,7 +94,7 @@ describe('attributeFields', () => {
     });
 
     it('should be possible to use custom timestamps in config', () => {
-        let config = {
+        config = {
             tableName: 'table',
             hashKey: 'hash',
             timestamps: true,
