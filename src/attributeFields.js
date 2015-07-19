@@ -12,8 +12,8 @@ export default function (config, opts) {
         let attribute = key;
         let type = config.schema[key];
         let description = '';
-        if(options.description){
-            description = options.description[key];
+        if (options.fieldsDescription) {
+            description = options.fieldsDescription[key];
         }
 
         memo[key] = {
@@ -27,15 +27,36 @@ export default function (config, opts) {
 
         return memo;
     }, {});
-    if(config.timestamps){
-        fields['createdAt'] = {
-            type: GraphQLInt,
-            description: 'Creation timestamp'
-        };
-        fields['updatedAt'] = {
-            type: GraphQLInt,
-            description: 'Update timestamp'
-        };
+    if (config.timestamps) {
+        if(
+            config.createdAt === undefined ||
+            config.createdAt == true ||
+            typeof config.createdAt == 'string'
+        ){
+            let key = 'createdAt';
+            if(typeof config.createdAt == 'string'){
+                key = config.createdAt;
+            }
+            fields[key] = {
+                type: GraphQLInt,
+                description: 'Creation timestamp'
+            };
+        }
+        if(
+            config.updatedAt === undefined ||
+            config.updatedAt == true ||
+            typeof config.updatedAt == 'string'
+        ){
+            let key = 'updatedAt';
+            if(typeof config.updatedAt == 'string'){
+                key = config.updatedAt;
+            }
+            fields[key] = {
+                type: GraphQLInt,
+                description: 'Update timestamp'
+            };
+        }
+
     }
     return fields;
 }

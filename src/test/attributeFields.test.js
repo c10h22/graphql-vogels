@@ -39,18 +39,18 @@ describe('attributeFields', () => {
         }
     };
     let options = {
-        description : {
+        description: 'User Model',
+        fieldsDescription: {
             email: 'email description',
             salt: 'salt description',
             hash: 'hash description',
             first_name: 'firstname description'
         }
     };
-    let Model = vogels.define('Model', config);
 
     it('should return fields for a simple model', () => {
+
         let fields = attributeFields(config, options);
-        console.log(Model);
         expect(fields).to.contain.keys(Object.keys(config.schema));
         expect(fields.hash.type).to.be.an.instanceOf(GraphQLNonNull);
         expect(fields.nullField.type).to.be.an.instanceOf(Error);
@@ -63,12 +63,7 @@ describe('attributeFields', () => {
         expect(fields.friends.type).to.equal(GraphQLList);
         expect(fields.address.type).to.equal(GraphQLObjectType);
         expect(fields.email).to.contain.key('description');
-        if (config.timestamps) {
-            expect(fields).to.contain.key('createdAt');
-            expect(fields).to.contain.key('updatedAt');
-            expect(fields.createdAt.type).to.equal(GraphQLInt);
-            expect(fields.updatedAt.type).to.equal(GraphQLInt);
-        }
+
     });
 
     it('should be possible to exclude fields', function () {
@@ -78,5 +73,72 @@ describe('attributeFields', () => {
         };
         let fields = attributeFields(config, options);
         expect(fields).to.not.have.keys(options.exclude);
+    });
+
+    it('should be possible to use timestamps in config', () => {
+        let config = {
+            tableName: 'table',
+            hashKey: 'hash',
+            timestamps: true,
+            schema: {
+                hash: Joi.string(),
+            }
+        };
+        let fields = attributeFields(config);
+        if (config.timestamps) {
+            expect(fields).to.contain.keys(['createdAt', 'updatedAt']);
+            expect(fields.createdAt).to.contain.keys(['type', 'description']);
+            expect(fields.createdAt).to.contain.keys(['type', 'description']);
+            expect(fields.createdAt.type).to.equal(GraphQLInt);
+            expect(fields.updatedAt.type).to.equal(GraphQLInt);
+        }
+    });
+
+    it('should be possible to use custom timestamps in config', () => {
+        let config = {
+            tableName: 'table',
+            hashKey: 'hash',
+            timestamps: true,
+            createdAt: false,
+            schema: {
+                hash: Joi.string(),
+            }
+        };
+        let fields = attributeFields(config);
+        expect(fields).to.contain.key('updatedAt').and.not.contain.key('createdAt');
+        expect(fields.updatedAt).to.contain.keys(['type', 'description']);
+        expect(fields.updatedAt.type).to.equal(GraphQLInt);
+
+        config = {
+            tableName: 'table',
+            hashKey: 'hash',
+            timestamps: true,
+            updatedAt: false,
+            schema: {
+                hash: Joi.string(),
+            }
+        };
+        fields = attributeFields(config);
+        expect(fields).to.contain.key('createdAt').and.not.contain.key('updatedAt');
+        expect(fields.createdAt).to.contain.keys(['type', 'description']);
+        expect(fields.createdAt.type).to.equal(GraphQLInt);
+
+        config = {
+            tableName: 'table',
+            hashKey: 'hash',
+            timestamps: true,
+            updatedAt: 'updateTime',
+            createdAt: 'creationTime',
+            schema: {
+                hash: Joi.string(),
+            }
+        };
+        fields = attributeFields(config);
+        expect(fields).to.contain.keys(['creationTime', 'updateTime']);
+        expect(fields.creationTime).to.contain.keys(['type', 'description']);
+        expect(fields.updateTime).to.contain.keys(['type', 'description']);
+        expect(fields.creationTime.type).to.equal(GraphQLInt);
+        expect(fields.updateTime.type).to.equal(GraphQLInt);
+
     });
 });
