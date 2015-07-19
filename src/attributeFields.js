@@ -1,19 +1,24 @@
 import * as typeMapper from './typeMapper';
-import { GraphQLNonNull } from 'graphql';
+import { GraphQLNonNull, GraphQLInt } from 'graphql';
 
 export default function (config, opts) {
     let options = opts || {};
 
-    return Object.keys(config.schema).reduce((memo, key) => {
+    let fields = Object.keys(config.schema).reduce((memo, key) => {
         if (options.exclude && ~options.exclude.indexOf(key)) {
             return memo;
         }
 
         let attribute = key;
         let type = config.schema[key];
+        let description = '';
+        if(options.description){
+            description = options.description[key];
+        }
 
         memo[key] = {
-            type: typeMapper.toGraphQL(type)
+            type: typeMapper.toGraphQL(type),
+            description: description
         };
 
         if (attribute === config.hashKey) {
@@ -22,4 +27,15 @@ export default function (config, opts) {
 
         return memo;
     }, {});
+    if(config.timestamps){
+        fields['createdAt'] = {
+            type: GraphQLInt,
+            description: 'Creation timestamp'
+        };
+        fields['updatedAt'] = {
+            type: GraphQLInt,
+            description: 'Update timestamp'
+        };
+    }
+    return fields;
 }
