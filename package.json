@@ -1,10 +1,10 @@
 {
   "name": "graphql-vogels",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Vogels helper for Graphql",
   "main": "lib/index.js",
   "scripts": {
-    "prepublish": "npm run check && npm run build",
+    "prepublish": "npm run check && npm run build && grunt bump-only && grunt changelog && grunt bump-commit",
     "check": "npm run lint && npm test",
     "lint": "eslint src",
     "build": "rimraf lib\\* && babel src --ignore test --optional runtime --out-dir lib",
@@ -36,6 +36,9 @@
     "coveralls": "^2.11.2",
     "eslint": "^1.0.0-rc-1",
     "graphql": "^0.1.3",
+    "grunt": "^0.4.5",
+    "grunt-bump": "^0.3.1",
+    "grunt-changelog": "^0.3.1",
     "istanbul": "^0.3.17",
     "joi": "^6.5.0",
     "mocha": "^2.2.5",
