@@ -4,7 +4,8 @@
   "description": "Vogels helper for Graphql",
   "main": "lib/index.js",
   "scripts": {
-    "prepublish": "npm run check && npm run build && grunt bump-only && grunt changelog && grunt bump-commit",
+    "prepublish": "npm run check && npm run build && grunt changelog",
+    "postpublish": "grunt bump-commit",
     "check": "npm run lint && npm test",
     "lint": "eslint src",
     "build": "rimraf lib\\* && babel src --ignore test --optional runtime --out-dir lib",
