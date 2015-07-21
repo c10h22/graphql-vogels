@@ -21,9 +21,9 @@ module.exports = function (grunt) {
             }
         },
         changelog: {
-            sample: {
+            initial: {
                 options: {
-                    // Task-specific options go here.
+                    after: '0.0.1'
                 }
             }
         }
