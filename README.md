@@ -60,7 +60,7 @@ Usage
     });
     ```
     
-    userModel:
+    userModel console output:
     ```javascript
     { name: 'User',
       description: 'User type',
@@ -69,7 +69,7 @@ Usage
          description: 'User type',
          fields: [Function: fields] } }
     ```
-    fields:
+    fields console output:
     
     ```javascript
     { email: { type: { ofType: [Object] }, description: 'User email' },
