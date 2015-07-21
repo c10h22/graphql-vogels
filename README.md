@@ -5,7 +5,7 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/55aba34b30653500230003f9/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55aba34b30653500230003f9)
 # Graphql-Vogels
 
-> Vogels helper for graphql inspired by graphql-sequelize
+> Vogels helper for graphql, inspired by graphql-sequelize
 
 ## Table of Contents
 
@@ -48,11 +48,10 @@ let options = {
         hash: 'Dynamodb hash',
         first_name: 'User first name',
         last_name: 'User last name',
-        phone_number: 'User phone number'
     }
 }
-export var userModel = vogels.define('User',config);
 
+export var userModel = vogels.define('User',config);
 export var userType = new GraphQLObjectType({
     name: 'User',
     description: 'User type',
@@ -61,6 +60,56 @@ export var userType = new GraphQLObjectType({
 });
 ```
 
+userModel:
+```javascript
+{ name: 'User',
+  description: 'User type',
+  _typeConfig: 
+   { name: 'User',
+     description: 'User type',
+     fields: [Function: fields] } }
+```
+fields:
+
+```javascript
+{ email: { type: { ofType: [Object] }, description: 'User email' },
+  salt: 
+   { type: 
+      { name: 'String',
+        description: undefined,
+        _scalarConfig: [Object] },
+     description: 'Password encryption salt' },
+  hash: 
+   { type: 
+      { name: 'String',
+        description: undefined,
+        _scalarConfig: [Object] },
+     description: 'Dynamodb hash' },
+  first_name: 
+   { type: 
+      { name: 'String',
+        description: undefined,
+        _scalarConfig: [Object] },
+     description: 'User first name' },
+  last_name: 
+   { type: 
+      { name: 'String',
+        description: undefined,
+        _scalarConfig: [Object] },
+     description: 'User last name' },
+  phone_number: 
+   { type: 
+      { name: 'String',
+        description: undefined,
+        _scalarConfig: [Object] },
+     description: undefined },
+  createdAt: 
+   { type: { name: 'Int', description: undefined, _scalarConfig: [Object] },
+     description: 'Creation timestamp' },
+  updatedAt: 
+   { type: { name: 'Int', description: undefined, _scalarConfig: [Object] },
+     description: 'Update timestamp' } }
+```
 
 
 
