@@ -5,6 +5,68 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/55aba34b30653500230003f9/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55aba34b30653500230003f9)
 # Graphql-Vogels
 
-> Vogels helper for graphql
+> Vogels helper for graphql inspired by graphql-sequelize
 
 ## Table of Contents
+
+Installation
+------------
+    $ npm install --save graphql-vogels
+graphql and vogels must be installed in order to use graphql-vogels
+
+Features
+--------
+
+ - Using Vogels model config to generate Graphql Object Type fields
+ - TODO:
+ - TODO:
+ 
+Usage
+--------
+
+ -Generating Vogels model and Graphql object type fields
+
+```javascript
+let config = {
+    tableName : 'hopnpop_users',
+    hashKey : 'email',
+    timestamps : true,
+    schema : {
+        email : Joi.string(),
+        salt : Joi.string(),
+        hash : Joi.string(),
+        first_name : Joi.string(),
+        last_name : Joi.string(),
+        phone_number : Joi.string(),
+    }
+};
+let options = {
+    description: 'User model',
+    fieldsDescription: {
+        email: 'User email',
+        salt: 'Password encryption salt',
+        hash: 'Dynamodb hash',
+        first_name: 'User first name',
+        last_name: 'User last name',
+        phone_number: 'User phone number'
+    }
+}
+export var userModel = vogels.define('User',config);
+
+export var userType = new GraphQLObjectType({
+    name: 'User',
+    description: 'User type',
+    fields: () => attributeFields(config, options)
+
+});
+```
+
+
+
+
+
+	
+
+    
+
+
