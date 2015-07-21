@@ -24,98 +24,106 @@ Features
 Usage
 --------
 
- -Generating Vogels model and Graphql object type fields
+   1. Generating Vogels model and Graphql object type fields
 
-```javascript
-let config = {
-    tableName : 'hopnpop_users',
-    hashKey : 'email',
-    timestamps : true,
-    schema : {
-        email : Joi.string(),
-        salt : Joi.string(),
-        hash : Joi.string(),
-        first_name : Joi.string(),
-        last_name : Joi.string(),
-        phone_number : Joi.string(),
+    ```javascript
+    let config = {
+        tableName : 'hopnpop_users',
+        hashKey : 'email',
+        timestamps : true,
+        schema : {
+            email : Joi.string(),
+            salt : Joi.string(),
+            hash : Joi.string(),
+            first_name : Joi.string(),
+            last_name : Joi.string(),
+            phone_number : Joi.string(),
+        }
+    };
+    let options = {
+        description: 'User model',
+        fieldsDescription: {
+            email: 'User email',
+            salt: 'Password encryption salt',
+            hash: 'Dynamodb hash',
+            first_name: 'User first name',
+            last_name: 'User last name',
+        }
     }
-};
-let options = {
-    description: 'User model',
-    fieldsDescription: {
-        email: 'User email',
-        salt: 'Password encryption salt',
-        hash: 'Dynamodb hash',
-        first_name: 'User first name',
-        last_name: 'User last name',
-    }
-}
-
-export var userModel = vogels.define('User',config);
-export var userType = new GraphQLObjectType({
-    name: 'User',
-    description: 'User type',
-    fields: () => attributeFields(config, options)
-
-});
-```
-
-userModel:
-```javascript
-{ name: 'User',
-  description: 'User type',
-  _typeConfig: 
-   { name: 'User',
-     description: 'User type',
-     fields: [Function: fields] } }
-```
-fields:
-
-```javascript
-{ email: { type: { ofType: [Object] }, description: 'User email' },
-  salt: 
-   { type: 
-      { name: 'String',
-        description: undefined,
-        _scalarConfig: [Object] },
-     description: 'Password encryption salt' },
-  hash: 
-   { type: 
-      { name: 'String',
-        description: undefined,
-        _scalarConfig: [Object] },
-     description: 'Dynamodb hash' },
-  first_name: 
-   { type: 
-      { name: 'String',
-        description: undefined,
-        _scalarConfig: [Object] },
-     description: 'User first name' },
-  last_name: 
-   { type: 
-      { name: 'String',
-        description: undefined,
-        _scalarConfig: [Object] },
-     description: 'User last name' },
-  phone_number: 
-   { type: 
-      { name: 'String',
-        description: undefined,
-        _scalarConfig: [Object] },
-     description: undefined },
-  createdAt: 
-   { type: { name: 'Int', description: undefined, _scalarConfig: [Object] },
-     description: 'Creation timestamp' },
-  updatedAt: 
-   { type: { name: 'Int', description: undefined, _scalarConfig: [Object] },
-     description: 'Update timestamp' } }
-```
-
-
-
-
-	
-
     
+    export var userModel = vogels.define('User',config);
+    export var userType = new GraphQLObjectType({
+        name: 'User',
+        description: 'User type',
+        fields: () => attributeFields(config, options)
+    
+    });
+    ```
+    
+    userModel:
+    ```javascript
+    { name: 'User',
+      description: 'User type',
+      _typeConfig: 
+       { name: 'User',
+         description: 'User type',
+         fields: [Function: fields] } }
+    ```
+    fields:
+    
+    ```javascript
+    { email: { type: { ofType: [Object] }, description: 'User email' },
+      salt: 
+       { type: 
+          { name: 'String',
+            description: undefined,
+            _scalarConfig: [Object] },
+         description: 'Password encryption salt' },
+      hash: 
+       { type: 
+          { name: 'String',
+            description: undefined,
+            _scalarConfig: [Object] },
+         description: 'Dynamodb hash' },
+      first_name: 
+       { type: 
+          { name: 'String',
+            description: undefined,
+            _scalarConfig: [Object] },
+         description: 'User first name' },
+      last_name: 
+       { type: 
+          { name: 'String',
+            description: undefined,
+            _scalarConfig: [Object] },
+         description: 'User last name' },
+      phone_number: 
+       { type: 
+          { name: 'String',
+            description: undefined,
+            _scalarConfig: [Object] },
+         description: undefined },
+      createdAt: 
+       { type: { name: 'Int', description: undefined, _scalarConfig: [Object] },
+         description: 'Creation timestamp' },
+      updatedAt: 
+       { type: { name: 'Int', description: undefined, _scalarConfig: [Object] },
+         description: 'Update timestamp' } }
+    ```
 
+   2. Excluding some vogels fields from graphql object type fields
+you can exclude one or more fields from Graphql object type fields. For example, to exclude phone_number attribute:
 
+    ```javascript
+    let options = {
+        description: 'User model',
+        exclude: ['phone_number'],
+        fieldsDescription: {
+            email: 'User email',
+            salt: 'Password encryption salt',
+            hash: 'Dynamodb hash',
+            first_name: 'User first name',
+            last_name: 'User last name',
+        }
+    }
+    ```
